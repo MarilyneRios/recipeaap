@@ -4,6 +4,7 @@ import Home from './Components/Home';
 import Login from './Components/Login';
 import NavBar from "./Components/NavBar";
 import CreateRecipe from './Components/CreateRecipe';
+import ReadRecipe from './Components/ReadRecipe';
 import FavoriteRecipe from './Components/FavoriteRecipe';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/auth/login' element={<Login/>}></Route>
         <Route path='/recipe/create-recipe' element={<CreateRecipe/>}></Route>
         <Route path='/recipe/favorite-recipe' element={<FavoriteRecipe/>}></Route>
+        <Route path='/read-recipe/:id' element={<ReadRecipe/>}></Route>
       </Routes>
        </BrowserRouter>
   )

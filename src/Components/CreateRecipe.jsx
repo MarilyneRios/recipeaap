@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function CreateRecipe() {
     // Déclaration des états
@@ -21,11 +22,15 @@ function CreateRecipe() {
       setRecipe ({...recipe, [name]: value})
     }
   
+    //Navigation
+    const navigate = useNavigate()
+
     // Fonction pour gérer la soumission du formulaire
     const handleSubmit = (e) => {
       e.preventDefault();
       axios.post('http://localhost:3001/recipe/create-recipe', recipe)
       .then(result => {
+        navigate('/')
         console.log(result.data)
         alert("recipe create")
       }) .catch (err => console.log(err))
