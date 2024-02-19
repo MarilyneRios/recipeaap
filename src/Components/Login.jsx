@@ -13,8 +13,9 @@ function Login() {
         e.preventDefault();
         axios.post('http://localhost:3001/auth/login', {username, password})
         .then (result => {
-            navigate('/');
-            console.log(result);
+            window.localStorage.setItem("id", result.data.id)
+            navigate('/')
+            console.log(result)
         } ) .catch (err => console.log(err))
     }
 

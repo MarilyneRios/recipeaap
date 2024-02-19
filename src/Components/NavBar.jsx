@@ -1,6 +1,5 @@
-import { useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -12,11 +11,11 @@ function NavBar() {
               Les recettes
             </Link>
 
-            <Link className="navbar-brand link-success  p-2 mx-2" aria-current="page" to="create-recipe">
+            <Link className="navbar-brand link-success  p-2 mx-2" aria-current="page" to="/recipe/create-recipe">
               Créer
             </Link>
 
-            <Link className="navbar-brand link-success p-2 mx-2" to="favorite-recipe">
+            <Link className="navbar-brand link-success p-2 mx-2" to="/recipe/favorite-recipe">
               Mes préférées
             </Link>
           </div>
