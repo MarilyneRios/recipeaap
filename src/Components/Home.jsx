@@ -15,8 +15,9 @@ function Home() {
   }, []);
 
   return (
-    <div className="d-flex flex-column justify-content-center mx-3">
-      <div className="m-3 d-flex align-items-center justify-content-between">
+    <div className="container-fluid d-flex flex-column justify-content-center mx-auto" 
+   >
+      <div className=" mt-3 d-flex align-items-center justify-content-between px-4 py-2 rounded" style={{ backgroundColor: "#f8f9fa" }}>
         <h2>Liste des recettes</h2>
         {/* Search Bar */}
         <form className="d-flex">
@@ -33,9 +34,9 @@ function Home() {
         </form>
       </div>
 
-      <div className="d-flex flex-wrap  justify-content-start gap-3">
+      <div className="d-flex flex-wrap  justify-content-start gap-4" >
         {recipes.map((recipe) => (
-          <div key={recipe._id} className="mt-4 p-3 border rounded shadow w-25">
+          <div key={recipe._id} className="mt-4 p-3 border rounded shadow w-25 "  style={{ backgroundColor: "#f8f9fa" }}>
             <Link
               to={`/read-recipe/${recipe._id}`}
               className="text-decoration-none"

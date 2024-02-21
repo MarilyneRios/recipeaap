@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function NavBar() {
   // Récupérer l'identifiant de l'utilisateur depuis le stockage local
   const username = localStorage.getItem("username");
   console.log("le username du localStorage : " + username);
+
+  const handleLogout = () =>{
+    window.localStorage.clear();
+    axios.get('http://localhost:3001/auth/logout')
+    .then((result) => window.location.reload(result))
+    .catch((error) => console.log("logout :" + error));
+  }
 
   return (
     <div>
@@ -42,25 +50,28 @@ function NavBar() {
                     Bienvenue {username}
                   </p>
 
-                  <Link className="btn btn-outline-success mx-3">
+                  <Link className="btn btn-outline-success mx-3" onClick={handleLogout}>
                     Se déconnecter
                   </Link>
                 </div>
               </>
             ) : (
               <>
+              <div className="d-flex justify-content-end">
                 <Link
-                  to="/auth/register"
-                  className="btn btn-outline-success mx-1 "
-                >
-                  S&apos;enregistrer
-                </Link>
-                <Link
-                  to="/auth/login"
-                  className="btn btn-outline-success mx-1 "
-                >
-                  S&apos;inscrire
-                </Link>
+                    to="/auth/register"
+                    className="btn btn-outline-success mx-3 "
+                  >
+                    S&apos;enregistrer
+                  </Link>
+                  <Link
+                    to="/auth/login"
+                    className="btn btn-outline-success mx-1 "
+                  >
+                    S&apos;inscrire
+                  </Link>
+              </div>
+        
               </>
             )}
           </div>

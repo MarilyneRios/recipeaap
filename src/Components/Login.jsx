@@ -22,8 +22,8 @@ function Login() {
     }
 
   return (
-<div className='d-flex justify-content-center align-items-center vh-100 '>
-    <div className='p-3 border border-1 rounded w-35'>
+<div className='d-flex justify-content-center align-items-center vh-100'  style={{ backgroundImage: 'url("/bg3.jpg")', backgroundSize: 'cover', backgroundRepeat: 'repeat' }}>
+    <div className='p-3 border border-1 rounded w-35' style={{  backgroundColor: "#f8f9fa" }} >
     <h3>S&apos;inscrire</h3>
         <form onSubmit={handleSubmit}>
             <div>

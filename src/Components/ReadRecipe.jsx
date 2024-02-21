@@ -3,48 +3,56 @@ import { useParams } from "react-router-dom"
 import axios from "axios";
 
 function ReadRecipe() {
-    // Récupérer l'identifiant de la recette depuis le paramètre de l'URL
+    // Récupérer l'identifiant de la recette 
     const { id} = useParams();
     // Récupérer l'identifiant de l'utilisateur depuis le stockage local
     const userId = window.localStorage.getItem("id");
-    const [recipe, setRecipe]= useState([])
-    const [savedRecipes, setsavedRecipes] =useState([])
+    const [recipe, setRecipe]= useState([]);
+    const [savedRecipes, setSavedRecipes] = useState([]);
 
     //Récup une recette du back
     useEffect(() => {
         const getRecipe = () => {
         axios.get("http://localhost:3001/recipe/recipe-by-id/" + id)
           .then((result) => {
-            //console.log("getRecipe :" + JSON.stringify(result.data));
+            console.log('getRecipe' + result);
             setRecipe(result.data);
           })
           .catch((error) => console.log("getRecipe error" + error));
       };
-        getRecipe();
-    }, []);
 
-    // récup une recette préférée
-    useEffect(()=> {
-      const fetchSavedRecipes = () => {
-        axios.get( 'http://localhost:3001/recipe/saved-recipes/'+ userId)
-        .then((result) => {
-          console.log("fetchSavedRecipes:" + JSON.stringify(result.data.savedRecipes));
-         setsavedRecipes(result.data.savedRecipes);
-       })
-       .catch((error) => console.log("fetchSavedRecipes error" + error));
-      }
+      // Récup une recette préférée
+        const fetchSavedRecipes = () => {
+        axios.get('http://localhost:3001/recipe/saved-recipes/'+ userId)
+            .then((result) => {
+                console.log('fetchSavedRecipes : ' +result.data.savedRecipes);
+                if (result.data.savedRecipes) {
+                    setSavedRecipes(result.data.savedRecipes);
+                }
+            })
+            .catch((error) => console.log("fetchSavedRecipes error" + error));
+    }
+
       fetchSavedRecipes();
-    }, [userId])
+      getRecipe();
+    }, [id,userId]);
+
+         
 
     //Ajouter une recette aux préférées
     const savedRecipe = (recipeId) => {
-      axios
-        .put("http://localhost:3001/recipes", { userId, recipeId })
+      axios.put("http://localhost:3001/recipe", { userId, recipeId })
         .then((result) => {
-          console.log("savedRecipe :" + result);
+          console.log("savedRecipe : " + result);
+          setSavedRecipes(result.data.savedRecipes);
         })
         .catch((error) => console.log("savedRecipe error :" + error));
     };
+
+
+    const isRecipeSaved = (id) => savedRecipes && savedRecipes.includes(id);
+
+
 
   return (
     <div className="d-flex  justify-content-center container border rounded shadow my-3">
@@ -56,7 +64,12 @@ function ReadRecipe() {
           <div className="p-2  col-6 my-3">
           <div className="d-flex justify-content-between px-3">
           <h2 className="link-success fst-italic mx-2">{recipe.name}</h2>
-            <button className="btn btn-outline-danger mx-2 my-1" onClick={() => savedRecipe(recipe.userId)}>Mes préférées</button>
+            <button className="btn btn-outline-danger mx-2 my-1" 
+            onClick={() => savedRecipe(recipe._id)}
+             disabled ={isRecipeSaved(recipe._id)}
+            >
+            {isRecipeSaved(recipe._id) ? "Préférée" : "Non préférée"}
+            </button>
           </div>
           <div>
           <h3 className="mt-2">Les ingrédients</h3>
