@@ -66,21 +66,21 @@ function CreateRecipe() {
       </div>
 
       <div className="mb-2">
-      <label htmlFor="ing">Les ingrédients</label>
+      <label htmlFor="ingredients">Les ingrédients</label>
       <input
           className="form-control input-lg"
           type="text"  
-          name="ing"
+          name="ingredients"
           onChange={handleChange}
           placeholder="Entrer les ingédients"
         />
       </div>
       <div className="mb-2">
-      <label htmlFor="desc">La préparation</label>
+      <label htmlFor="instructions">La préparation</label>
       <input
           className="form-control input-lg"
           type="text"  
-          name="desc"
+          name="instructions"
           onChange={handleChange}
           placeholder="Entrer la préparation"
         />

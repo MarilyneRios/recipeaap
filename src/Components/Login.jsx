@@ -14,6 +14,8 @@ function Login() {
         axios.post('http://localhost:3001/auth/login', {username, password})
         .then (result => {
             window.localStorage.setItem("id", result.data.id)
+             // Stocker le username dans le localStorage
+            localStorage.setItem("username", result.data.username);
             navigate('/')
             console.log(result)
         } ) .catch (err => console.log(err))
