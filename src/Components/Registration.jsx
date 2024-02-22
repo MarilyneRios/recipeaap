@@ -25,7 +25,7 @@ function Registration() {
     <h3>S&apos;enregistrer</h3>
         <form onSubmit={handleSubmit}>
             <div>
-                <label htmlFor='username'>Pseudo</label>
+                <label htmlFor='usernameRegistration'>Pseudo</label>
                 <input type='text' placeholder='Votre pseudo' className='form-control my-2'
                     id="usernameRegistration"
                     onChange={(e)=> setUsername (e.target.value)}
@@ -33,9 +33,10 @@ function Registration() {
             </div>
 
             <div>
-                <label htmlFor='password'>Mot de passe</label>
+                <label htmlFor='passwordRegistration'>Mot de passe</label>
                 <input type='password' placeholder="***********" 
                 className='form-control my-2' id="passwordRegistration"
+            
                     onChange={(e)=> setPassword (e.target.value)}
                 />
             </div>

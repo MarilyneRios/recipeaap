@@ -32,12 +32,9 @@ function ReadRecipe() {
             })
             .catch((error) => console.log("fetchSavedRecipes error" + error));
     }
-
       fetchSavedRecipes();
       getRecipe();
-    }, [id,userId]);
-
-         
+    }, [id,userId]);       
 
     //Ajouter une recette aux préférées
     const savedRecipe = (recipeId) => {
@@ -48,23 +45,21 @@ function ReadRecipe() {
         })
         .catch((error) => console.log("savedRecipe error :" + error));
     };
-
-
     const isRecipeSaved = (id) => savedRecipes && savedRecipes.includes(id);
 
 
-
   return (
-    <div className="d-flex  justify-content-center container border rounded shadow my-3">
+    <div className="d-flex  justify-content-center container border rounded shadow my-3"
+    style={{ backgroundColor: "#f8f9fa" }}>
         {recipe ? (
           <>
-          <div className="p-2 col-6 my-3">
-          <img src={recipe.imageUrl} alt={recipe.name} className="img-fluid  rounded"/>
+          <div className="p-2 col-4 my-3">
+          <img src={recipe.imageUrl} alt={recipe.name} className="img-fluid  rounded" />
           </div>
-          <div className="p-2  col-6 my-3">
-          <div className="d-flex justify-content-between px-3">
-          <h2 className="link-success fst-italic mx-2">{recipe.name}</h2>
-            <button className="btn btn-outline-danger mx-2 my-1" 
+          <div className="  col-8 my-3">
+          <div className="d-flex justify-content-between ">
+          <h2 className="link-success fst-italic fw-bold">{recipe.name}</h2>
+            <button className="btn btn-outline-danger  my-1 " 
             onClick={() => savedRecipe(recipe._id)}
              disabled ={isRecipeSaved(recipe._id)}
             >
@@ -72,13 +67,16 @@ function ReadRecipe() {
             </button>
           </div>
           <div>
-          <h3 className="mt-2">Les ingrédients</h3>
+            <h4 className="mt-2 fw-bold ">{recipe.category}</h4>
+            
+            <h4 className="mt-2">Les ingrédients</h4>
             <p>{recipe.ingredients}</p>
-            <h3 className="mt-2">La préparation</h3>
+            
+            <h4 className="mt-2">La préparation</h4>
             <p>{recipe.instructions}</p>
-            <h3 className="mt-2">Les bienfaits de la recette</h3>
+            <h4 className="mt-2">Les bienfaits de la recette</h4>
             <p>{recipe.comments}</p>
-            <h3 className="mt-2">L&apos;auteur</h3>
+            <h4 className="mt-2">L&apos;auteur</h4>
             <p>{recipe.pseudo}</p>
           </div>
           </div>

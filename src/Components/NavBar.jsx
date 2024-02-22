@@ -1,17 +1,36 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
-  // Récupérer l'identifiant de l'utilisateur depuis le stockage local
-  const username = localStorage.getItem("username");
+  // Récupérer l'identifiant de l'utilisateur depuis le localStorage
+  const [username, setUsername] = useState(localStorage.getItem("username")); 
+  const navigate = useNavigate();
+
+  //au chargement de la page username = null
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
   console.log("le username du localStorage : " + username);
 
   const handleLogout = () =>{
     window.localStorage.clear();
     axios.get('http://localhost:3001/auth/logout')
-    .then((result) => window.location.reload(result))
+   
+    .then(()  => {
+      navigate('/');
+      setUsername(null);
+      //window.location.reload(result);
+    })
     .catch((error) => console.log("logout :" + error));
   }
+
+  const isLoggedIn = !!username;
 
   return (
     <div>
@@ -35,7 +54,7 @@ function NavBar() {
 
             <Link
               className="navbar-brand link-success p-2 mx-2"
-              to="/recipe/favorite-recipe"
+              to="/recipe/saved-recipes"
             >
               Mes préférées
             </Link>
@@ -43,7 +62,7 @@ function NavBar() {
 
           {/* btn registration/login or logout */}
           <div className="w-100  ">
-            {window.localStorage.length ? (
+          {isLoggedIn && window.localStorage.length ? ( // Utiliser la variable d'état isLoggedIn  au lieu de username window.localStorage.length
               <>
                 <div className="d-flex align-items-center justify-content-evenly w-100">
                   <p className="fs-4   mx-3 mt-3">

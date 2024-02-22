@@ -6,6 +6,7 @@ function CreateRecipe() {
     // Déclaration des états
     const [recipe, setRecipe]=useState({
       name:"",
+      category:"",
       ingredients:"",
       instructions:"",
       comments:"",
@@ -64,6 +65,25 @@ function CreateRecipe() {
          
         />
       </div>
+
+      <div className="mb-2 ">
+          <label htmlFor="category">Catégorie : &nbsp;</label>
+          <select
+            className="form-control input-lg"
+            aria-label="Default select example"
+            id="category"
+            name="category"
+            value={recipe.category}
+            onChange={handleChange}
+          >
+            <option value="">Selectionner une Categorie</option>
+            <option value="Apéritif">Apéritif</option>
+            <option value="Entrée">Entrée</option>
+            <option value="Plat">Plat</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Boisson">Boisson</option>
+          </select>
+        </div>
 
       <div className="mb-2">
       <label htmlFor="ingredients">Les ingrédients</label>
