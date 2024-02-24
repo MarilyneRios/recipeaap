@@ -47,8 +47,14 @@ function SavedRecipes() {
               <img
                 src={recipe.imageUrl}
                 alt={recipe.name}
-                className="img-fluid w-100 rounded"
+                style={{ maxHeight: '150px' }}
+                className="img-fluid w-100 rounded mb-3"
               />
+              <p> 
+                 temps de préparation : {recipe.makingTime} (minutes)<br>
+                </br>temps de cuissons : {recipe.cookingTime} (minutes)
+              </p>
+           
             </Link>
           </div>
         ))}

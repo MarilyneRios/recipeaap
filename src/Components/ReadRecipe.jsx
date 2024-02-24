@@ -23,21 +23,18 @@ function ReadRecipe() {
           .catch((error) => console.log("getRecipe error" + error));
       };
 
-      // Récup une recette préférée
-        const fetchSavedRecipes = async () => {
-          try{
-            axios.get('http://localhost:3001/recipe/saved-recipes/'+ userId)
-            .then((result) => {
-                console.log('fetchSavedRecipes : ' +result.data.savedRecipes);
-                if (result.data.savedRecipes) {
-                    setSavedRecipes(result.data.savedRecipes);
-                }
-            })
-          }   
-            catch(error) {
-              console.log("fetchSavedRecipes error" + error);
-            }
+       const fetchSavedRecipes = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/recipe/saved-recipes/' + userId);
+        console.log('Response:', response);
+        if (response.data.savedRecipes) {
+          setSavedRecipes(response.data.savedRecipes);
+        }
+      } catch(error) {
+        console.log("Error fetching saved recipes:", error);
+      }
     }
+    
       fetchSavedRecipes();
       getRecipe();
     }, [id,userId]);       
@@ -51,19 +48,18 @@ function ReadRecipe() {
         })
         .catch((error) => console.log("savedRecipe error :" + error));
     };
-    const isRecipeSaved = (id) => savedRecipes.includes(id);
 
-   
+    const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
     <div className="d-flex  justify-content-center container border rounded shadow my-3 "
     style={{ backgroundColor: "#f8f9fa", minHeight:"76vh" }}>
-    <div className=" col-auto mt-3 mx-1 ">
-      <Link className="btn btn-outline-success"to="/"> Retour</Link>
+    <div className=" col-auto mt-3">
+      <Link className="btn btn-outline-success"to="/"> Retour liste</Link>
     </div>
         {recipe ? (
           <>
-          <div className="p-2 col-4 mt-3 ">
+          <div className="p-2 col-4 mt-3 mx-1">
           <img src={recipe.imageUrl} alt={recipe.name} className="img-fluid w-100 justify-content-center rounded shadow-lg" 
           style={{ maxHeight: '300px' }}/>
           </div>
@@ -72,8 +68,9 @@ function ReadRecipe() {
           <div className="d-flex justify-content-between pt-3">
           <h2 className="link-success fst-italic fw-bold">{recipe.name}</h2>
             <button className="btn btn-outline-danger  my-1 " 
-            onClick={() => savedRecipe(recipe._id)}
+             onClick={() => savedRecipe(recipe._id)}
              disabled ={isRecipeSaved(recipe._id)}
+             type="button"
             >
             {isRecipeSaved(recipe._id) ? "Préférée" : "aime"}
             </button>
@@ -81,20 +78,15 @@ function ReadRecipe() {
 
           <div>
             <h4 className="mt-2 fw-bold text-secondary">{recipe.category}</h4>
-            
             <h4 className="mt-2">Les ingrédients</h4>
              {/* Afficher les ingrédients un par un */}
-          {recipe.ingredients.map((ingredient, index) => (
-            <p key={index}>{ingredient}</p>
-          ))}
-         
-            
+             {recipe && recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
+                <p key={index}>{ingredient}</p>
+             ))}       
             <h4 className="mt-2">La préparation</h4>
             <p>{recipe.instructions}</p>
-
            
             <p className="mt-2">Le temps de préparation : {recipe.makingTime} (minutes)</p>
-          
             <p className="mt-2">Le temps de cuisson : {recipe.cookingTime} (minutes)</p>
 
             <h4 className="mt-2">Les bienfaits de la recette</h4>

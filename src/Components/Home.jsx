@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 function Home() {
   const [recipes, setRecipes] = useState([]);
   const [query, setQuery] = useState('');
-  const userId = window.localStorage.getItem("id");
-  const [savedRecipes, setSavedRecipes] = useState([]);
 
+  //recup toutes les recettes
   useEffect(() => {
     axios
       .get("http://localhost:3001/recipe/recipes")
@@ -17,6 +16,7 @@ function Home() {
       .catch((error) => console.log(error));
   }, []);
 
+  //fonction Recherche
   const handleSearchResults = async (e) => {
     e.preventDefault();
     const response = await fetch(`http://localhost:3001/recipe/search?query=${query}`);
@@ -25,30 +25,6 @@ function Home() {
     setRecipes(data); 
   };
 
-  //ajouter au préféré
-  useEffect(() => {
-    const fetchSavedRecipes = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/recipe/saved-recipes/' + userId);
-        setSavedRecipes(response.data.savedRecipes || []);
-      } catch (error) {
-        console.log("fetchSavedRecipes error" + error);
-      }
-    };
-    fetchSavedRecipes();
-  }, [userId]);      
-  
-   //Ajouter une recette aux préférées
-   const savedRecipe = async (recipeId) => {
-    try {
-      await axios.put("http://localhost:3001/recipe", { userId, recipeId });
-      setSavedRecipes([...savedRecipes, recipeId]);
-    } catch (error) {
-      console.log("savedRecipe error :" + error);
-    }
-  };
-
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
     <div className="container-fluid d-flex flex-column justify-content-center mx-auto my-3">
@@ -85,15 +61,6 @@ function Home() {
           
           <div className="d-flex justify-content-between pt-3">
           <h2 className="link-success fst-italic fw-bold">{recipe.name}</h2>
-          <div>
-          <button className="btn btn-outline-danger  w-10 " 
-            onClick={() => savedRecipe(recipe._id)}
-             disabled ={isRecipeSaved(recipe._id)}
-             type="button"
-            >
-            {isRecipeSaved(recipe._id) ? "Préférée" : "aime"}
-            </button>
-          </div>
            
           </div>
 
@@ -101,10 +68,12 @@ function Home() {
                 src={recipe.imageUrl}
                 alt={recipe.name}
                 style={{ maxHeight: '150px' }}
-                className="img-fluid w-100 rounded "
+                className="img-fluid w-100 rounded mb-3"
               />
-              <p> temps de préparation : {recipe.makingTime} (minutes)</p>
-              <p> temps de cuissons : {recipe.cookingTime} (minutes)</p>
+              <p> 
+                 temps de préparation : {recipe.makingTime} (minutes)<br>
+                </br>temps de cuissons : {recipe.cookingTime} (minutes)
+              </p>
             </Link>
           </div>
         ))}
