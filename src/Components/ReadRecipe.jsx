@@ -67,13 +67,17 @@ function ReadRecipe() {
             </button>
           </div>
           <div>
-            <h4 className="mt-2 fw-bold ">{recipe.category}</h4>
+            <h4 className="mt-2 fw-bold text-secondary">{recipe.category}</h4>
             
             <h4 className="mt-2">Les ingrédients</h4>
             <p>{recipe.ingredients}</p>
             
             <h4 className="mt-2">La préparation</h4>
             <p>{recipe.instructions}</p>
+            <h4 className="mt-2">Le temps de préparation</h4>
+            <p>{recipe.makingTime}</p>
+            <h4 className="mt-2">Le temps de cuisson</h4>
+            <p>{recipe.cookingTime}</p>
             <h4 className="mt-2">Les bienfaits de la recette</h4>
             <p>{recipe.comments}</p>
             <h4 className="mt-2">L&apos;auteur</h4>

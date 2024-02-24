@@ -2,17 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-
-function CreateRecipe() {
-    // Déclaration des états
-
+function ChangeRecipe() {
+    
     const [recipe, setRecipe]=useState({
       name:"",
       category:"",
       ingredients:[],
       instructions:"",
-      makingTime:"",
-      cookingTime:"",
       comments:"",
       pseudo:"",
       imageUrl:"",
@@ -40,7 +36,7 @@ function CreateRecipe() {
         .catch (err => console.log(err))
     };
     
- 
+
   return (
     <div
     className="container d-flex flex-column align-items-center justify-content-center"
@@ -100,7 +96,7 @@ function CreateRecipe() {
       </div>
       <div className="mb-2">
       <label htmlFor="instructions">La préparation</label>
-      <textarea
+      <input
           className="form-control input-lg"
           type="text"  
           name="instructions"
@@ -109,7 +105,7 @@ function CreateRecipe() {
         />
       </div>
       <div className="mb-2">
-        <label htmlFor="makingTime">Le temps de préparation (min):</label>
+        <label htmlFor="makingTime">Le temps de préparation (min) :</label>
         <input
           className="form-control input-lg"
           type="number"    
@@ -119,10 +115,10 @@ function CreateRecipe() {
         />
       </div>
       <div className="mb-2">
-        <label htmlFor="cookingTime">Le temps de cuisson (min):</label>
+        <label htmlFor="cookingTime">Le temps de cuisson (min) :</label>
         <input
           className="form-control input-lg"
-          type="text"   
+          type="number"    
           name="cookingTime"
           onChange={handleChange}
           placeholder="0"
@@ -138,7 +134,6 @@ function CreateRecipe() {
             placeholder="Entrer le commentaire"
           />
       </div>
-
       <div className="mb-2">
         <label htmlFor="pseudo">Le pseudo de l&apos;auteur</label>
         <input
@@ -149,18 +144,18 @@ function CreateRecipe() {
           placeholder="pseudo"
        
         />
- 
       </div>
       <div className="mb-2">
       <label htmlFor="imageUrl">L&apos;image URL</label>
       
         <input
-          type="text"
+          type="file"
           placeholder="importer votre image"
           name="imageUrl"
           className="form-control input-lg"
           onChange={handleChange}
         />
+
       
       </div>
       <div className="mb-1  d-flex justify-content-center">
@@ -171,14 +166,4 @@ function CreateRecipe() {
   )
 }
 
-export default CreateRecipe
-
-/*
-<input
-   type="text"
-   placeholder="Entrer URL"
-  name="imageUrl"
-  className="form-control input-lg"
-  onChange={handleChange}
-/>  */
-
+export default ChangeRecipe
