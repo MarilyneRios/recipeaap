@@ -16,13 +16,30 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
+// Import  Reducer
+import userReducer from '../reducers/userReducer';
+import recipeReducer from '../reducers/recipeReducer';
 */
 /*
-const reducers = combineReducers({ userReducer});
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const reducers = combineReducers({ user: userReducer, recipe: recipeReducer }); // Specify the slice names
+const store = configureStore({
+  reducer: persistReducer(persistConfig, reducers),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+});
+
+const persistor = persistStore(store);
+
 */
 function App() {
  
   return (
+ 
     <BrowserRouter>
      <NavBar/>
       <Routes>
@@ -39,3 +56,21 @@ function App() {
 }
 
 export default App
+ /*
+   <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <NavBar/>
+          <Routes>
+            <Route path='/' element={<Home/>}></Route>
+            <Route path='/auth/register' element={<Registration/>}></Route>
+            <Route path='/auth/login' element={<Login/>}></Route>
+            <Route path='/recipe/create-recipe' element={<CreateRecipe/>}></Route>
+            <Route path='/recipe/saved-recipes' element={<SavedRecipes/>}></Route>
+            <Route path='/read-recipe/:id' element={<ReadRecipe/>}></Route>
+          </Routes>
+          <Footer/>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+ */
