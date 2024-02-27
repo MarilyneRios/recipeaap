@@ -8,8 +8,18 @@ import ReadRecipe from './Components/ReadRecipe';
 import SavedRecipes from './Components/SavedRecipes';
 import Footer from './Components/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-  
-
+/*
+//---redux import
+import { Provider } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit"; 
+//---redux persist import
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+import storage from "redux-persist/lib/storage";
+*/
+/*
+const reducers = combineReducers({ userReducer});
+*/
 function App() {
  
   return (

@@ -1,40 +1,43 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: { token: null, username: null, email:null, password:null },
+  value: { token: null, username: null, email: null, password: null },
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    //créer un utilisateur
+    // Create a new user
     addUser: (state, action) => {
-        state.value.username = action.payload.username;
-        state.value.email = action.payload.email;
-        state.value.password = action.payload.password;
-      },
-    //connexion
+      state.value.username = action.payload.username;
+      state.value.email = action.payload.email;
+      state.value.password = action.payload.password;
+    },
+    // Log in
     login: (state, action) => {
       state.value.token = action.payload.token;
       state.value.username = action.payload.username;
     },
-    //déconnexion
+    // Log out
     logout: (state) => {
       state.value.token = null;
       state.value.username = null;
     },
-    //changer le username
+    // Update the username
     updateUsername: (state, action) => {
-        state.value.username = action.payload;
+      state.value.username = action.payload;
     },
-
-    //changer le mot de passe
+    // Update the password
     updatePassword: (state, action) => {
-        state.value.username = action.payload;
+      state.value.password = action.payload;
+    },
+    // Remove a user (assuming you have an array of users)
+    removeUser: (state, action) => {
+      state.value = state.value.filter(user => user.name !== action.payload.name);
     },
   },
 });
 
-export const { addUser, login, logout,updateUsername,updatePassword } = userSlice.actions;
+export const { addUser, login, logout, updateUsername, updatePassword, removeUser } = userSlice.actions;
 export default userSlice.reducer;
